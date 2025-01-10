@@ -89,7 +89,7 @@ int test_single_threaded(){
         // constrcut tree
         std::cout << "signal tree: test_single_threaded<" << desired_signal_tree_capacity << ">\n";
         using signal_tree_type = signal_tree<desired_signal_tree_capacity>;
-        constexpr auto signalTree = std::make_unique<signal_tree_type>();
+        auto signalTree = std::make_unique<signal_tree<desired_signal_tree_capacity>>();
         static auto constexpr actual_signal_tree_capacity = signal_tree_type::capacity;
 
         //=========================================================================
@@ -103,7 +103,7 @@ int test_single_threaded(){
         // populate tree.  first signal set should return that the tree was empty 
         // prior to the call to set.  all other calls to set additional signals should
         // return that the tree was NOT empty prior to that call to set.
-        /*for (auto i = 0ull; i < actual_signal_tree_capacity; ++i)
+        for (auto i = 0ull; i < actual_signal_tree_capacity; ++i)
         {
             auto wasEmpty = signalTree->empty();
             auto [transitionedToNonEmpty, success] = signalTree->set(i);
@@ -113,12 +113,12 @@ int test_single_threaded(){
             if (!success)
                 throw std::runtime_error("signal tree set() failed");
         }
-        std::cout << "signal tree: all signals set correctly\n";*/
+        std::cout << "signal tree: all signals set correctly\n";
 
         //=========================================================================
         // repeat above.  But since signals are all set, each call to set() should
         // return 'not transitioned from empty' and 'failure to set'
-        /*for (auto i = 0ull; i < actual_signal_tree_capacity; ++i)
+        for (auto i = 0ull; i < actual_signal_tree_capacity; ++i)
         {
             auto [transitionedToNonEmpty, success] = signalTree->set(i);
             if (transitionedToNonEmpty)
@@ -128,7 +128,7 @@ int test_single_threaded(){
                 throw std::runtime_error("signal tree set() should have failed for already set signal");
 
         }
-        std::cout << "signal tree: all signals set correctly\n";*/
+        std::cout << "signal tree: all signals set correctly\n";
 
         //=========================================================================
         // select all elements out of tree.  Do so using the bias hint to target exactly
@@ -136,7 +136,8 @@ int test_single_threaded(){
         // ensure that invalid signal id (~0ull) is never returned.
         // ensure that 'transitionedToEmpty' is true ONLY when the last signal has been
         // selected from the tree (the selection caused tree to become empty)
-        /*std::vector<bool> selected(actual_signal_tree_capacity);
+        /*
+        std::vector<bool> selected(actual_signal_tree_capacity);
         std::fill(selected.begin(), selected.end(), false);
         for (auto i = 0ull; i < actual_signal_tree_capacity; ++i)
         {
@@ -165,7 +166,8 @@ int test_single_threaded(){
                     throw std::runtime_error("non empty tree returned transitionedToEmpty=true after selection");
             }
         }
-        std::cout << "signal tree: all signals seletected correctly\n";*/
+        std::cout << "signal tree: all signals seletected correctly\n";
+        */
 
         //=========================================================================
         // after selecting all signals the tree should be empty.  Subsequent calls to 

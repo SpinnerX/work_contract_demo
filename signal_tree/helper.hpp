@@ -1,5 +1,6 @@
 #pragma once
-#include <bit>
+// #include <bit>
+#include <signal_tree/bit.hpp>
 #include <cstdint>
 
 namespace work_contracts{
@@ -22,17 +23,17 @@ namespace work_contracts{
     template<size_t counter_capacity>
     static auto constexpr sub_counter_arity_v = sub_counter_arity<counter_capacity, 64>::value;
 
-    inline bool is_power_of_two(size_t value) {
-        if(value <= 0){
-            return false;
-        }
+    // inline bool is_power_of_two(size_t value) {
+    //     if(value <= 0){
+    //         return false;
+    //     }
 
-        return (value & (value - 1)) == 0;
-    }
+    //     return (value & (value - 1)) == 0;
+    // }
 
-    static int constexpr minimum_bit_count(size_t counter_capacity){
-        return ceil(log2(counter_capacity + 1));
-    }
+    // static int constexpr minimum_bit_count(size_t counter_capacity){
+    //     return ceil(log2(counter_capacity + 1));
+    // }
 
     // static bool 
 
