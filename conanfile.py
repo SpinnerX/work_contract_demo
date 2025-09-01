@@ -17,11 +17,12 @@ class StarterConanRecipe(ConanFile):
     def build_requirements(self):
         self.tool_requires("make/4.4.1")
         self.tool_requires("cmake/3.27.1")
-        self.tool_requires("engine3d-cmake-utils/2.0")
+        self.tool_requires("engine3d-cmake-utils/4.0")
 
     # Putting all of your packages here
     def requirements(self):
-        self.requires("fmt/10.2.1")
+        # self.requires("fmt/10.2.1")
+        pass
 
     def build(self):
         cmake = CMake(self)

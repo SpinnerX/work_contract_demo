@@ -1,5 +1,4 @@
 #include <signal_tree/signal_tree.hpp>
-#include <fmt/core.h>
 #include <iostream>
 #include <thread>
 #include <memory>
@@ -136,56 +135,53 @@ int test_single_threaded(){
         // ensure that invalid signal id (~0ull) is never returned.
         // ensure that 'transitionedToEmpty' is true ONLY when the last signal has been
         // selected from the tree (the selection caused tree to become empty)
-        /*
-        std::vector<bool> selected(actual_signal_tree_capacity);
-        std::fill(selected.begin(), selected.end(), false);
-        for (auto i = 0ull; i < actual_signal_tree_capacity; ++i)
-        {
-            auto [signalId, transitionedToEmpty] = signalTree->select(i);
-            if (signalId >= actual_signal_tree_capacity)
-                throw std::runtime_error("selected invalid signal index");
+        
+        /*std::vector<bool> selected(actual_signal_tree_capacity); */
+        /*std::fill(selected.begin(), selected.end(), false); */
+        /*for (auto i = 0ull; i < actual_signal_tree_capacity; ++i) */
+        /*{ */
+        /*    auto [signalId, transitionedToEmpty] = signalTree->select(i); */
+        /*    if (signalId >= actual_signal_tree_capacity) */
+        /*        throw std::runtime_error("selected invalid signal index"); */
 
-            // signal should not have been previously selected
-            if (selected[signalId] == true)
-                throw std::runtime_error("signal selected twice without being set twice");
+        /*    // signal should not have been previously selected */
+        /*    if (selected[signalId] == true) */
+        /*        throw std::runtime_error("signal selected twice without being set twice"); */
 
-            selected[signalId] = true;
-            // signal selected should match the bias hint provided
-            if (signalId != i)
-                throw std::runtime_error("select returned wrong signal id");
+        /*    selected[signalId] = true; */
+        /*    // signal selected should match the bias hint provided */
+        /*    if (signalId != i) */
+        /*        throw std::runtime_error("select returned wrong signal id"); */
 
-            if (signalTree->empty())
-            {
-                if (transitionedToEmpty != true)
-                    throw std::runtime_error("empty tree returned transitionedToEmpty=false after selection");
-            }
-            else
-            {
-                // tree is not empty after selection. transitionedToEmpty should be false
-                if (transitionedToEmpty == true)
-                    throw std::runtime_error("non empty tree returned transitionedToEmpty=true after selection");
-            }
-        }
-        std::cout << "signal tree: all signals seletected correctly\n";
-        */
+        /*    if (signalTree->empty()) */
+        /*    { */
+        /*        if (transitionedToEmpty != true) */
+        /*            throw std::runtime_error("empty tree returned transitionedToEmpty=false after selection"); */
+        /*    } */
+        /*    else */
+        /*    { */
+        /*        // tree is not empty after selection. transitionedToEmpty should be false */
+        /*        if (transitionedToEmpty == true) */
+        /*            throw std::runtime_error("non empty tree returned transitionedToEmpty=true after selection"); */
+        /*    } */
+        /*} */
+        /*std::cout << "signal tree: all signals seletected correctly\n"; */
+        /*//========================================================================= */
+        /*// after selecting all signals the tree should be empty.  Subsequent calls to */ 
+        /*// select should return invalid signal id (~0ull) */
+        /*/1*if (!signalTree->empty()) */
+        /*    throw std::runtime_error("signal tree expected to be empty after all signals selected"); */
 
-        //=========================================================================
-        // after selecting all signals the tree should be empty.  Subsequent calls to 
-        // select should return invalid signal id (~0ull)
-        /*if (!signalTree->empty())
-            throw std::runtime_error("signal tree expected to be empty after all signals selected");
-
-        if (auto [signalId, transitionedToEmpty] = signalTree->select(0); signalId != ~0ull)
-            throw std::runtime_error("empty signal tree should return invalid signal id when select is called");
-        std::cout << "signal tree: empty tree correctly returns invalid signal id to select call\n";*/
+        /*if (auto [signalId, transitionedToEmpty] = signalTree->select(0); signalId != ~0ull) */
+        /*    throw std::runtime_error("empty signal tree should return invalid signal id when select is called"); */
+        /* std::cout << "signal tree: empty tree correctly returns invalid signal id to select call\n"; */
 
         std::cout << "signal tree: all tests passed\n";
         return 0;
     }
-    catch (std::exception const & exception)
-    {
+    catch (std::exception const & exception) {
         std::cerr << "ERROR: " << exception.what() << "\n";
-        return -1;
+         return -1;
     }
 }
 
@@ -193,7 +189,7 @@ int test_single_threaded(){
 int main(){
     if (!(test_single_threaded<64>() == 0))
         return -1;
-    // if (!test_single_threaded<512>() == 0)
+    // if (!(test_single_threaded<512>() == 0))
     //     return -1;
     // if (!test_single_threaded<8192>() == 0)
     //     return -1;

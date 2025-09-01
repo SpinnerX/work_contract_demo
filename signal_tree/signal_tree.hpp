@@ -84,7 +84,8 @@ namespace work_contracts{
 
     private:
         root_level rootLevel_;
-    }; // end of class tree
+    };
+    // end of class tree
 }; // end of signal_tree namespace
 
 template<size_t N>
@@ -108,9 +109,9 @@ inline bool work_contracts::tree<N>::empty() const noexcept {
 // select and return the index of a leaf which is 'set'
 // return invalid_signal_index if no leaf is 'set' (empty tree)
 template <std::size_t N>
-template <template <std::uint64_t, std::uint64_t> class select_function>
-inline auto work_contracts::tree<N>::select (uint64_t bias) noexcept -> std::pair<signal_index, bool>{
+template <template <std::uint64_t, std::uint64_t> class>
+inline std::pair<work_contracts::signal_index, bool> work_contracts::tree<N>::select(uint64_t bias) noexcept{
     static int constexpr number_of_bias_bits = (65 - minimum_bit_count(capacity));
     bias = bias << number_of_bias_bits;
-    return rootLevel_. template select<select_function>(bias);
+    return rootLevel_. template select<work_contracts::default_selector>(bias);
 }
